@@ -9,7 +9,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 //可以优化 参考 https://github.com/llfbandit/app_links/blob/master/app_links/android/src/main/java/com/llfbandit/app_links/AppLinksPlugin.java
 /** PlatformFileUrlPlugin */
-class PlatformFileUrlPlugin() : FlutterPlugin, MethodCallHandler {
+@Suppress("unused")
+public class PlatformFileUrlPlugin : FlutterPlugin, MethodCallHandler {
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -43,7 +44,9 @@ class PlatformFileUrlPlugin() : FlutterPlugin, MethodCallHandler {
   }
 
   fun openFile(url: String) {
-    channel?.invokeMethod("openFile", mapOf("url" to url))
+    if (::channel.isInitialized) {
+      channel.invokeMethod("openFile", mapOf("url" to url))
+    }
   }
 
 
